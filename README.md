@@ -20,7 +20,7 @@ Jsramverk is an API made for creating-, editing- and viewing- documents in all s
 ## Installation
 
 To install this API, one must first download the content featured in this folder and place it in the desired directory.
-Afterwards one must then the command `npm install`.
+Afterwards one must simply run then the command `npm install`.
 
 After node (npm) has installed all the dependencies, one must simply run the API with the command `npm start`.
 
