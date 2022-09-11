@@ -8,8 +8,7 @@ const find = {
         await db.client.close();
         return result;
     },
-    one: async (id = {}) => {
-        console.log(id)
+    one: async (id) => {
         const db = await database.getDb();
         const result = await db.collection.findOne({"_id": ObjectId(`${id}`)});
         await db.client.close();

@@ -4,7 +4,7 @@ const handleDocPost = require('../db/sort/handleDocPost')
 
 router.post("/", (req, res) => {
     try{
-        handleDocPost(req.query)
+        handleDocPost(req.body)
 
         res.status(201).json({
             data: {

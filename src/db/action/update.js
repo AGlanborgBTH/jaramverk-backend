@@ -11,7 +11,11 @@ const update = {
     one: async (id, update) => {
         const db = await database.getDb();
         const result = await db.collection.updateOne({"_id": ObjectId(id)}, {$set: update});
-        console.log(result)
+        await db.client.close();
+    },
+    find: async (id, update) => {
+        const db = await database.getDb();
+        const result = await db.collection.findOneAndUpdate({"_id": ObjectId(id)}, {$set: update});
         await db.client.close();
     }
 }

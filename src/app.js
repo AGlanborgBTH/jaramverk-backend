@@ -13,6 +13,9 @@ const docPost = require("./routes/docPost");
 const port = process.env.PORT || 8081;
 
 app.use(cors());
+app.options('*', cors());
+app.disable('x-powered-by');
+app.use(express.json())
 app.use(morgan("combined"));
 
 app.use(mwindex);
@@ -20,4 +23,4 @@ app.use(mwindex);
 app.use("/docs", doc)
 app.use("/docs/post", docPost);
 
-app.listen(port, () => {console.log(`starting server on port: ${port}`)});
+app.listen(port, () => {});

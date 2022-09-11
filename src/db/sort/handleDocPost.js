@@ -1,16 +1,14 @@
-const find = require("../action/find")
+const add = require("../action/add")
 const update = require("../action/update")
 
 async function handleDocPost(obj) {
-    const id = obj._id
-    delete obj._id
-
-    try {
-        if (await find.one(id)) {
-            update.one(id, obj)
-        }
-    } catch {
-        console.log("oh no")
+    if (obj._id) {
+        const id = obj._id
+        delete obj._id
+        update.find(id, obj)
+    } else {
+        delete obj._id
+        add.one(obj)
     }
 }
 
