@@ -30,4 +30,4 @@ Everything, excluding dependencies, can be found in the **/src** directory.
 There, one can find the main file, **/src/app.js** and folders with descriptive names.
 Each folder contained in the **/src** directory has files described by the folder name.
 
-In the **/src/db** folder are two folders that contain files wich either interact with the database itself (src/db/action) or files that sort the action to be taken by context provided by the content of the POST-requests (src/db/sort).
+In the **/src/db** folder is one folder that contain files whom interact with the database itself (src/db/action)
