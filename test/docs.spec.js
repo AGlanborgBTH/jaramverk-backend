@@ -61,4 +61,24 @@ describe('Docs', () => {
                 });
         });
     });
+
+    describe('PUT', () => {
+        it('PUT status 404', (done) => {
+            const doc = {
+                _id: 123,
+                title: "Hello World",
+                content: "Hi~",
+                innerHTML: "<div>Hi~</div>"
+            }
+
+            chai.request(server)
+                .put("/docs/put")
+                .send(doc)
+                .end((err, res) => {
+                    res.should.have.status(404);
+
+                    done();
+                });
+        });
+    });
 });
