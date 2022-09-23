@@ -4,8 +4,15 @@ const add = require('../db/action/add')
 
 router.post("/", (req, res) => {
     try{
-        delete req.query._id
-        add.one(req.query)
+        if (Object.keys(req.body).length != 0) {
+            delete req.body._id
+            add.one(req.body)
+        } else if (Object.keys(req.query).length != 0) {
+            delete req.query._id
+            add.one(req.query)
+        } else {
+            throw "Empty POST request"
+        }
 
         res.status(201).json({
             data: {
@@ -18,7 +25,7 @@ router.post("/", (req, res) => {
                 status: 500,
                 source: "/",
                 title: "Database error",
-                detail: e.message
+                detail: e.message || e
             }
         });
     }
