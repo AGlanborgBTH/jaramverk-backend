@@ -2,15 +2,15 @@ const express = require('express');
 const router = express.Router();
 const update = require('../db/action/update')
 
-router.post("/", (req, res) => {
+router.put("/", (req, res) => {
     try{
-        const id = req.body._id
-        delete req.body._id
-        update.find(id, req.body)
+        const id = req.query._id
+        delete req.query._id
+        update.find(id, req.query)
 
-        res.status(204).json({
+        res.status(200).json({
             data: {
-                msg: "Got a PUT request, sending back 204: Doc updated"
+                msg: "Got a PUT request, sending back 200: Doc updated"
             }
         });}
     catch (e) {

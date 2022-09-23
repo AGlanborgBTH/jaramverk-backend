@@ -4,8 +4,8 @@ const add = require('../db/action/add')
 
 router.post("/", (req, res) => {
     try{
-        delete req.body._id
-        add.one(req.body)
+        delete req.query._id
+        add.one(req.query)
 
         res.status(201).json({
             data: {
