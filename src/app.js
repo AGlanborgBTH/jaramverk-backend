@@ -1,16 +1,15 @@
 require("dotenv").config()
 
-const express = require("express");
-const bodyParser = require('body-parser');
-const cors = require("cors");
-const morgan = require("morgan");
+const express = require("express")
+const bodyParser = require('body-parser')
+const cors = require("cors")
+const morgan = require("morgan")
 
 const app = express();
-const httpServer = require("http").createServer(app);
+const httpServer = require("http").createServer(app)
 
-const doc = require("./routes/doc");
-const docPost = require("./routes/docPost");
-const docPut = require("./routes/docPut")
+const doc = require("./routes/docRoute");
+const user = require("./routes/userRoute")
 
 const port = process.env.PORT || 8082;
 
@@ -43,7 +42,7 @@ io.on('connection', function (socket) {
     socket.on("doc", function (doc) {
         documents[doc.id] = doc
 
-        socket.broadcast.emit("doc", doc);
+        socket.broadcast.emit("doc", doc)
     })
 
     socket.on("newDoc", function (doc) {
@@ -52,21 +51,20 @@ io.on('connection', function (socket) {
     })
 
     socket.on('disconnect', () => {
-        console.log("User disconnected with socket id:", socket.id);
+        console.log("User disconnected with socket id:", socket.id)
     });
 });
 
 io.on("connect_error", (err) => {
-    console.log(`connect_error due to ${err.message}`);
+    console.log(`connect_error due to ${err.message}`)
 });
 
-app.use("/docs", doc)
-app.use("/docs/post", docPost);
-app.use("/docs/put", docPut)
+app.use("/doc", doc)
+app.use("/user", user)
 
 var server = httpServer.listen(port, function () {
     var host = server.address().address;
-    console.log('App listening at', host, port);
+    console.log('App listening at', host, port)
 });
 
 module.exports = server

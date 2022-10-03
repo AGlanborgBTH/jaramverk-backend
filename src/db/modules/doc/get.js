@@ -1,7 +1,7 @@
 const ObjectId = require('mongodb').ObjectId; 
-const database = require('../database')
+const database = require('../../database')
 
-const find = {
+const get = {
     all: async () => {
         const db = await database.getDb();
         const result = await db.collection.find().toArray();
@@ -16,4 +16,4 @@ const find = {
     }
 }
 
-module.exports = find
+module.exports = get
