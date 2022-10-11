@@ -20,13 +20,13 @@ const io = require("socket.io")(httpServer, {
     }
 });
 
-const { mwindex } = require("./middleware/index");
+const { logreq } = require("./middleware/logreq");
 
 app.use(cors());
 app.options('*', cors());
 app.disable('x-powered-by');
 app.use(express.json())
-app.use(mwindex);
+app.use(logreq);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

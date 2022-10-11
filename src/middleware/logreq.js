@@ -1,7 +1,7 @@
-const mwindex = (req, res, next) => {
+const logreq = (req, res, next) => {
     console.log(req.method);
     console.log(req.path);
     next();
 }
 
-module.exports={mwindex}
+module.exports={logreq}
