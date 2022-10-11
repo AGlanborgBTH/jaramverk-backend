@@ -4,8 +4,19 @@ const get = require('../../db/modules/doc/get');
 
 router.get('/', async (req, res) => {
     try {
+        let id = ""
+
+        if (!req.headers["data-user-id"]) {
+            throw "Action requires user to be logged in"
+        } else {
+            id = req.headers["data-user-id"]
+        }
+
+        const public = await get.all({ users: { $in: ["*"] } })
+        const private = await get.all({ users: { $in: [id] } })
+        console.log(public)
         const data = {
-            data: await get.all()
+            data: [...public, ...private]
         };
 
         return res.json(data);
