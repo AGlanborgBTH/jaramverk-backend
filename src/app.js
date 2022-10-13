@@ -27,7 +27,7 @@ const { GraphQLSchema} = require("graphql");
 
 const RootQueryType = require("./graphql/root");
 
-const visual = true;
+const visual = false;
 
 app.use(cors());
 app.options('*', cors());
@@ -72,7 +72,7 @@ const schema = new GraphQLSchema({
     query: RootQueryType
 });
 
-//app.use('/graphql', checkToken);
+app.use('/graphql', checkToken);
 app.use('/graphql', graphqlHTTP({
     schema: schema,
     graphiql: visual,
