@@ -11,7 +11,7 @@ const httpServer = require("http").createServer(app)
 const doc = require("./routes/docRoute");
 const user = require("./routes/userRoute")
 
-const port = process.env.PORT || 8082;
+const port = process.env.PORT || 8080;
 
 const io = require("socket.io")(httpServer, {
     cors: {
@@ -21,6 +21,13 @@ const io = require("socket.io")(httpServer, {
 });
 
 const { logreq } = require("./middleware/logreq");
+const { checkToken } = require("./middleware/checkToken")
+const { graphqlHTTP } = require('express-graphql');
+const { GraphQLSchema} = require("graphql");
+
+const RootQueryType = require("./graphql/root");
+
+const visual = true;
 
 app.use(cors());
 app.options('*', cors());
@@ -46,7 +53,6 @@ io.on('connection', function (socket) {
     })
 
     socket.on("newDoc", function (doc) {
-        console.log(documents)
         socket.emit("doc", documents[doc.id])
     })
 
@@ -61,6 +67,16 @@ io.on("connect_error", (err) => {
 
 app.use("/doc", doc)
 app.use("/user", user)
+
+const schema = new GraphQLSchema({
+    query: RootQueryType
+});
+
+//app.use('/graphql', checkToken);
+app.use('/graphql', graphqlHTTP({
+    schema: schema,
+    graphiql: visual,
+}));
 
 var server = httpServer.listen(port, function () {
     var host = server.address().address;

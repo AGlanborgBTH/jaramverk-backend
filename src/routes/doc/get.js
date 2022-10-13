@@ -12,9 +12,9 @@ router.get('/', async (req, res) => {
             id = req.headers["data-user-id"]
         }
 
-        const public = await get.all({ users: { $in: ["*"] } })
-        const private = await get.all({ users: { $in: [id] } })
-        console.log(public)
+        const public = await get.multiple({ users: { $in: ["*"] } })
+        const private = await get.multiple({ users: { $in: [id] } })
+
         const data = {
             data: [...public, ...private]
         };
