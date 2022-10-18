@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
                 status: 500,
                 source: "/doc/",
                 title: "Error",
-                detail: e.message
+                detail: e.message || e
             }
         });
     }
