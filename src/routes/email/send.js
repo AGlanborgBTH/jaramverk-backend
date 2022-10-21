@@ -1,9 +1,22 @@
 const express = require('express');
+const validator = require("email-validator")
 const router = express.Router();
 const sgMail = require('@sendgrid/mail')
 
 router.post("/", (req, res) => {
     try {
+        if (Object.keys(req.body).length == 0) {
+            throw "Empty POST request"
+        }
+
+        if (!req.body.to || !req.body.from) {
+            throw "Missing to-email or from-email"
+        }
+
+        if (!validator.validate(req.body.to)) {
+            throw "Invalid email"
+        }
+
         sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
         const msg = {
@@ -35,7 +48,7 @@ router.post("/", (req, res) => {
         return res.status(500).json({
             errors: {
                 status: 500,
-                source: "/doc/post",
+                source: "/email",
                 title: "Error",
                 detail: e.message || e
             }

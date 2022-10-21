@@ -3,11 +3,6 @@ const database = require('../../database')
 const login = {
     login: async (body) => {
         const email = body.email
-        const password = body.password
-
-        if (!email || !password) {
-            throw "Missing email or password"
-        }
 
         const query = { email: email }
 

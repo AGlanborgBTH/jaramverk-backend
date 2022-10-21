@@ -1,4 +1,5 @@
 const express = require('express');
+const validator = require("email-validator")
 const router = express.Router();
 const reg = require('../../db/modules/user/reg')
 
@@ -6,6 +7,14 @@ router.post("/", (req, res) => {
     try{
         if (Object.keys(req.body).length == 0) {
             throw "Empty POST request"
+        }
+
+        if (!req.body.email || !req.body.password) {
+            throw "Missing email or password"
+        }
+
+        if (!validator.validate(req.body.email)) {
+            throw "Invalid email"
         }
 
         reg.reg(req.body)

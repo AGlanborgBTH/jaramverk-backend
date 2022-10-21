@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const login = require('../../db/modules/user/login')
-const compare = require('../modules/compare')
+const compare = require('./modules/compare')
 
 router.post("/", async (req, res) => {
     try{
         if (Object.keys(req.body).length == 0) {
             throw "Empty POST request"
+        }
+
+        if (!req.body.email || !req.body.password) {
+            throw "Missing email or password"
         }
 
         const user = await login.login(req.body)
